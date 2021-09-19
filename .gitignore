@@ -2,7 +2,7 @@
 node_modules
 .history
 /dist
-
+# 忽略git提交时的文件
 
 # local env files
 .env.local
