@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { Button, message, Layout, Menu, Icon, Breadcrumb, Row, Col, Select, Input, Upload, Modal } from 'ant-design-vue';
+import { Button, message, Layout, Menu, Icon, Breadcrumb, Row, Col, Select, Input, Upload, Modal,FormModel,DatePicker ,Table ,Tree,Popconfirm } from 'ant-design-vue';
 import App from './App';
 import 'ant-design-vue/dist/antd.css';
 
@@ -18,6 +18,11 @@ Vue.component(Select.name, Select);
 Vue.component(Input.name, Input);
 Vue.component(Upload.name, Upload);
 Vue.component(Modal.name, Modal);
+Vue.component(FormModel.name, FormModel);
+Vue.component(DatePicker.name, DatePicker);
+Vue.component(Table.name, Table);
+Vue.component(Tree.name, Tree);
+Vue.component(Popconfirm .name, Popconfirm );
 
 
 Vue.component(Button.Group.name, Button.Group);
@@ -31,6 +36,11 @@ Vue.use(Select);
 Vue.use(Input);
 Vue.use(Upload);
 Vue.use(Modal);
+Vue.use(FormModel);
+Vue.use(DatePicker);
+Vue.use(Table);
+Vue.use(Tree);
+Vue.use(Popconfirm);
 Vue.prototype.$message = message;
 
 new Vue({

@@ -107,7 +107,7 @@
                                         </div> -->
                                     </div>
                                     </a-upload>
-                                    <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+                                    <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancelImg">
                                     <img alt="example" style="width: 100%" :src="previewImage" />
                                 </a-modal>
                                 <div style="font-size: 14px;font-family: PingFangSC-Regular, PingFang SC;font-weight: 400;color: #71757A;line-height: 14px;">展示您的店铺图片，最多可以上传6张（第一张为首页轮播首图展示），图片格式为jpg、png。</div>
@@ -119,16 +119,25 @@
             <a-row>
                 <a-col :span="24">
                     <div class="buttonBox">
-                        <a-button type="primary">
-                            Primary
+                        <a-button @click="showModal">
+                            保存
                         </a-button>
-                        <a-button type="primary">
-                            Primary
+                        <a-button type="primary" class="btn_bg" @click="info">
+                            确认提交
                         </a-button>
                     </div>
                 </a-col>
             </a-row>
         </div>
+        <a-modal
+            title="Title"
+            :visible="visible"
+            :confirm-loading="confirmLoading"
+            @ok="handleOk"
+            @cancel="handleCancel"
+        >
+            <p>{{ ModalText }}</p>
+        </a-modal>
     </div>
 </template>
 <script>
@@ -143,6 +152,11 @@ function getBase64(file) {
 export default {
   data() {
     return {
+        ModalText: 'Content of the modal',
+      visible: false,
+      confirmLoading: false,
+
+
       previewVisible: false,
       previewImage: "",
       fileList: [
@@ -183,11 +197,38 @@ export default {
     };
   },
   methods: {
+    showModal() {
+      this.visible = true;
+    },
+    handleOk(e) {
+      this.ModalText = 'The modal will be closed after two seconds';
+      this.confirmLoading = true;
+      setTimeout(() => {
+        this.visible = false;
+        this.confirmLoading = false;
+      }, 2000);
+    },
+    handleCancel(e) {
+      console.log('Clicked cancel button');
+      this.visible = false;
+    },
+    // 提交弹出框
+    info() {
+      const h = this.$createElement;
+      this.$info({
+        title: 'This is a notification message',
+        content: h('div', {}, [
+          h('p', 'some messages...some messages...'),
+          h('p', 'some messages...some messages...'),
+        ]),
+        onOk() {},
+      });
+    },
     handleChange(value) {
       console.log(`selected ${value}`);
     },
     // 图片
-    handleCancel() {
+    handleCancelImg() {
       this.previewVisible = false;
     },
     async handlePreview(file) {
@@ -245,8 +286,11 @@ export default {
         display: flex;
         justify-content: center;
         button{
-            background: #e82037;
             border: 1px solid #e82037;
+        }
+        .btn_bg{
+            background: #e82037;
+            margin-left: 30px;
         }
     }
   }
